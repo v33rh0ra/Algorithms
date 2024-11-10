@@ -71,12 +71,13 @@ public class SortingStrings {
         return sortPeople(people, false);
     }
     public List<Person> sortPeople(List<Person> people, boolean desc ){
+        Comparator<Person> comparator = Comparator.comparing(Person::getLastName)
+                .thenComparing(Person::getFirstName);
         if(desc){
-            people.sort(Comparator.comparing(Person::getLastName).reversed()
-                    .thenComparing(Person::getFirstName).reversed());
-        }else{
-            people.sort(Comparator.comparing(Person::getLastName).thenComparing(Person::getFirstName));
+            comparator = comparator.reversed();
+
         }
+        people.sort(comparator);
 
         people.forEach(System.out::println);
         return people;
@@ -95,7 +96,10 @@ public class SortingStrings {
                 new Person("Abraham", "Lincoln"),
                 new Person("Martin Luther", "King Jr"),
                 new Person("Mother","Teresa"),
-                new Person("George", "Washington")
+                new Person("George", "Washington"),
+                new Person("Karamchand", "Gandhi"),
+                new Person("Indira","Gandhi"),
+                new Person("Alexander", "Lincoln")
         };
         ss.sortPeople(Arrays.asList(peopleArr),true);
 
